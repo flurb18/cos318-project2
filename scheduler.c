@@ -16,8 +16,10 @@ queue_t blocked;
 
 void initialize_queues(pcb_t *pcbs, int num) {
   int i;
-  queue_init(&ready);
-  queue_init(&blocked);
+  // Change FIFO to MIN_PRIORITY in this line for extra credit
+  queue_init(&ready, FIFO);
+  // This should always be FIFO
+  queue_init(&blocked, FIFO);
   for (i = 0; i < num; i++) {
     queue_enqueue(&ready, &pcbs[i]);
   }
@@ -47,11 +49,8 @@ void block(void) {
 }
 
 void unblock(void) {
-  pcb_t *temp;
-  if (blocked_tasks()) {
-    temp = queue_dequeue(&blocked);
-    queue_enqueue(&ready, temp);
-  } 
+  ASSERT(blocked_tasks());
+  queue_enqueue(&ready, queue_dequeue(&blocked));
 }
 
 bool_t blocked_tasks(void) {

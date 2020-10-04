@@ -29,8 +29,9 @@ enum {
 typedef struct pcb {
   // Stack
   uint32_t esp;
-  // Next pcb in the queue this pcb is in
+  // Next pcb in the FIFO queue this pcb is in
   struct pcb *next;
+  // Parent and children in the min priorty queue
   // Time elapsed since initialization
   uint64_t t;
   // Process ID
