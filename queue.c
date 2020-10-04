@@ -24,19 +24,17 @@ void queue_enqueue(queue_t *q, pcb_t *pcb) {
     pcb->next = NULL;
   } else {
     q->last->next = pcb;
-    pcb->next = NULL;
     q->last = pcb;
+    pcb->next = NULL;
   }
 }
 
 pcb_t *queue_dequeue(queue_t *q) {
   pcb_t *temp = q->first;
   ASSERT(!queue_isempty(q));
-  if (q->first == q->last) {
-    queue_init(q);
-    return temp;
-  }
   q->first = q->first->next;
+  if (q->first == NULL)
+    q->last = NULL;
   return temp;
 }
 

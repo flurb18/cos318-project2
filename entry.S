@@ -9,6 +9,12 @@
 
 .globl  kernel_entry
 kernel_entry:
+	
+	xchg	%bx,%bx
+	cmp	$0, %eax
+	je	do_yield
+	cmp	$1, %eax
+	je	do_exit
 	ret
 
 .globl  scheduler_entry

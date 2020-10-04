@@ -18,8 +18,9 @@ void initialize_queues(pcb_t *pcbs, int num) {
   int i;
   queue_init(&ready);
   queue_init(&blocked);
-  for (i = 0; i < num; i++)
+  for (i = 0; i < num; i++) {
     queue_enqueue(&ready, &pcbs[i]);
+  }
 }
 
 void scheduler(void) {
