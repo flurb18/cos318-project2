@@ -11,7 +11,7 @@
 #include "scheduler.h"
 
 enum {
-  SPIN = TRUE,
+  SPIN = FALSE,
 };
 
 void lock_init(lock_t * l) {
