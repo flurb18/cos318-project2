@@ -1,0 +1,5 @@
+For the non-preemptive kernel, we mostly followed the prescribed methods. Our
+scheduler implements scheduler_entry by storing all registers on the stack that
+is assosciated with the currently running task, saving the stack pointer in the
+PCB of the currently running task, then calling scheduler() which dequeues the
+next element of the ready queue into currently_running.

@@ -13,11 +13,8 @@ typedef enum { FIFO, MIN_PRIORITY } queuetype_t;
 
 typedef struct {
   queuetype_t type;
-  // For use by FIFO type
   pcb_t *first;
   pcb_t *last;
-  // For use by MIN_PRIORITY type
-  pcb_t *root;
 } queue_t;
 
 void queue_init(queue_t *q, queuetype_t t);
