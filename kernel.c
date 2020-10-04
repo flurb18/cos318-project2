@@ -17,6 +17,8 @@ pcb_t *current_running;
 
 static pcb_t pcbs[NUM_TASKS];
 
+static void push_to_stack(uint32_t *esp, uint32_t val);
+
 // Kernel entry point must be the first function in the file
 void _start(void) {
     // Set up the single entry point for system calls
@@ -24,7 +26,7 @@ void _start(void) {
 
     clear_screen(0, 0, 80, 25);
 
-    // Initialize the pcbs and the ready queue
+    // Initialize the pcbs
     uint16_t i;
     ASSERT(NUM_TASKS > 0);
     for (i = 0; i < NUM_TASKS; i++) {
@@ -38,18 +40,13 @@ void _start(void) {
 	push_to_stack(&pcbs[i].esp, 0);
       pcbs[i].pid = i;
       pcbs[i].t = 0;
-      if (i == NUM_TASKS - 1) {
-	pcbs[i].next = &pcbs[0];
-      } else {
-	pcbs[i].next = &pcbs[i+1];
-      }
+      pcbs[i].state = READY;
     }
-    // Dummy pcb to point to the first task for loading
-    pcb_t dummy;
-    dummy.next = &pcbs[0];
-    current_running = &dummy;
+    // Initialize the schedulers queues
+    initialize_queues(pcbs, NUM_TASKS);
 
     // Schedule the first task
+    current_running = NULL;
     scheduler_count = 0;
     scheduler_entry();
 

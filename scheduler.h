@@ -1,5 +1,5 @@
 /* scheduler.h
- * COS 318, Fall 2019: Project 2 Non-Preemptive Kernel
+ * COS 318, Fall 2020: Project 2 Non-Preemptive Kernel
  * Definitions and types for a non-preemtive scheduler
  */
 
@@ -15,6 +15,9 @@ extern int scheduler_count;
 // Save the context and the kernel stack before calling scheduler
 // This function is implemented in entry.S
 void scheduler_entry(void);
+
+// Initialize the ready queue and the blocked queue
+void initialize_queues(pcb_t *pcbs, int num);
 
 // Change current_running to the next task
 void scheduler(void);

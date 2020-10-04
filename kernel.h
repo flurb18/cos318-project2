@@ -29,18 +29,23 @@ enum {
 typedef struct pcb {
   // Stack
   uint32_t esp;
-  // Next pcb
+  // Next pcb in the queue this pcb is in
   struct pcb *next;
   // Time elapsed since initialization
   uint64_t t;
   // Process ID
   uint16_t pid;
+  // State of the process
+  enum {
+    RUNNING,
+    READY,
+    BLOCKED,
+    EXITED
+  } state;
 } pcb_t;
 
 // The task currently running
 extern pcb_t *current_running;
-
-void push_to_stack(uint32_t *esp, uint32_t val);
 
 void kernel_entry(int fn);
 
