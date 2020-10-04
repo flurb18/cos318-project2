@@ -35,6 +35,8 @@ bool_t queue_isempty(queue_t *q) {
 }
 
 void queue_enqueue(queue_t *q, pcb_t *pcb) {
+  pcb_t *current;
+  int depth;
   switch(q->type) {
   case FIFO:
     if (queue_isempty(q)) {
@@ -48,6 +50,18 @@ void queue_enqueue(queue_t *q, pcb_t *pcb) {
     }
     break;
   case MIN_PRIORITY:
+    if (queue_isempty(q)) {
+      q->root = pcb;
+      pcb->parent = NULL;
+      pcb->l = NULL;
+      pcb->r = NULL;
+    } else {
+      current = q->root;
+      while(1) {
+	if(current->l == NULL) {
+	}
+      }
+    }
     break;
   }
 }
@@ -78,4 +92,15 @@ pcb_t *queue_peek(queue_t *q) {
   default:
     ASSERT(0);
   }
+}
+
+pcb_t *queue_siftup(queue_t *q, pcb_t *pcb) {
+  ASSERT(q->type == MIN_PRIORITY);
+  ASSERT(!queue_isempty(q));
+  pcb_t *current = pcb;
+  do {
+    if(current->parent == NULL)
+      return current;
+    
+  } while(current->t < current->parent->t);
 }

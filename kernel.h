@@ -32,6 +32,9 @@ typedef struct pcb {
   // Next pcb in the FIFO queue this pcb is in
   struct pcb *next;
   // Parent and children in the min priorty queue
+  struct pcb *parent;
+  struct pcb *l;
+  struct pcb *r;
   // Time elapsed since initialization
   uint64_t t;
   // Process ID
