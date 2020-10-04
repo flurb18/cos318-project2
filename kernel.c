@@ -17,6 +17,7 @@ pcb_t *current_running;
 
 static pcb_t pcbs[NUM_TASKS];
 
+// Forward declaration
 static void push_to_stack(uint32_t *esp, uint32_t val);
 
 // Kernel entry point must be the first function in the file

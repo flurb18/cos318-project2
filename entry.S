@@ -9,12 +9,23 @@
 
 .globl  kernel_entry
 kernel_entry:
+	pushl	%ebp
+	movl	%esp, %ebp
 	
-	xchg	%bx,%bx
+	movl	8(%esp), %eax
 	cmp	$0, %eax
-	je	do_yield
+	jne	dont_yield
+	call	do_yield
+	jmp	done
+dont_yield:	
 	cmp	$1, %eax
-	je	do_exit
+	jne	dont_exit
+	call	do_exit
+	jmp	done
+dont_exit:
+	jmp	done
+done:
+	leave
 	ret
 
 .globl  scheduler_entry

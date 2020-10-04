@@ -8,7 +8,9 @@
 #include "util.h"
 
 void thread4(void) {
+  do_exit();
 }
 
 void thread5(void) {
+  do_exit();
 }
