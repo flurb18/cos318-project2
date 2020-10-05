@@ -30,15 +30,13 @@ void thread5(void) {
 void thread6(void) {
   // start time
   uint64_t s;
-  int i;
   // total time
-  uint64_t t = 0;
+  uint64_t t_th6 = 0;
   while(1) {
     s = get_timer();
-    for(i = 0; i < 10; i++) {}
     print_str(20, 50, "Thread 6 CPU time: ");
-    print_int(20, 69, t);
-    t += get_timer() - start;
+    print_int(20, 69, t_th6);
+    t_th6 += get_timer() - s;
     do_yield();
   }
 }
@@ -49,5 +47,14 @@ void thread7(void) {
   int i;
   // total time
   uint64_t t = 0;
-  do_exit();
+  // dummy variable
+  uint64_t dummy = 0;
+  while(1) {
+    s = get_timer();
+    for(i = 0; i < 17; i++) {dummy++;}
+    print_str(21,50, "Thread 7 CPU time: ");
+    print_int(21,69, t);
+    t += get_timer() - s;
+    do_yield();
+  }
 }

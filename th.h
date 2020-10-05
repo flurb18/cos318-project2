@@ -17,4 +17,8 @@ void thread3(void);
 void thread4(void);
 void thread5(void);
 
+// Threads to test CPU scheduling fairness
+void thread6(void);
+void thread7(void);
+
 #endif
