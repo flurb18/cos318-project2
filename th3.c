@@ -51,7 +51,10 @@ void thread7(void) {
   uint64_t dummy = 0;
   while(1) {
     s = get_timer();
-    for(i = 0; i < 17; i++) {dummy++;}
+    for(i = 0; i < 17; i++) {
+      dummy++;
+      print_int(21,69,dummy);
+    }
     print_str(21,50, "Thread 7 CPU time: ");
     print_int(21,69, t);
     t += get_timer() - s;

@@ -35,9 +35,11 @@ to
 
 queue_init(&ready, MIN_PRIORITY);
 
-The project is compiled and run using the provided Makefile.
+You can see the results from thread 6 and thread 7, written in th3.c, which
+perform tasks that take different amounts of time and print their total cpu
+time (as they measure it). If the ready queue is initialized as FIFO, the
+two numbers will be drastically different after just a small amount of time.
+However, if it is MIN_PRIORITY, the two numbers will remain approximately
+similar.
 
-The only thing that isn't quite working is the timing theads to show fairness
-of the scheduler. We wrote two threads (thread6 and thread7) in th3.c that are
-supposed to showcase this, but they show the same CPU time regardless of the
-queue type.
+The project is compiled and run using the provided Makefile.
