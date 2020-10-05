@@ -2,4 +2,37 @@ For the non-preemptive kernel, we mostly followed the prescribed methods. Our
 scheduler implements scheduler_entry by storing all registers on the stack that
 is assosciated with the currently running task, saving the stack pointer in the
 PCB of the currently running task, then calling scheduler() which dequeues the
-next element of the ready queue into currently_running.
+next element of the ready queue into currently_running. Then it does everything
+in reverse: load the new stack pointer from the pcb, and pop off all the
+registers from this stack, where the new process previously stored its context.
+In order to initialize process, zeroes are just pushed onto the process's stack
+so its registers will also be zero.
+
+Enabling processes was as simple as reading the argument off the stack and
+calling the right kernel method in kernel_entry. A process's contexts (both
+inside and outside the kernel) are saved on that process's stack so we don't
+need two stacks for each process. 
+
+Timing do_yield and yield was as simple as getting the time before a yield and
+subtracting it from the time when the next task yields. For the kernel threads
+this means two threads (thread4 and thread5) that are consecutive, and for
+processes this means setting a static variable to indicate whether this is
+the first time that process has been run (since we have two copies of the
+process as consecutive tasks, but they share the same address space).
+
+To implement mutual exclusion, we use a blocked queue associated with a lock
+(since we allocate statically here, we only use one lock and so there's only
+one queue). Calling lock_acquire while the lock is held puts that task on the
+blocked queue, where it waits for it to be popped off when the lock is
+released. 
+
+To enable a fair scheduler for the extra credit, change line 20 of scheduler.c
+from
+
+queue_init(&ready, FIFO);
+
+to
+
+queue_init(&ready, MIN_PRIORITY);
+
+The project is compiled and run using the provided Makefile.

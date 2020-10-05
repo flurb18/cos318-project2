@@ -27,6 +27,10 @@ void initialize_queues(pcb_t *pcbs, int num) {
 
 void scheduler(void) {
   ++scheduler_count;
+  if (queue_isempty(&ready)) {
+    while(1)
+      print_str(0,0,"No more tasks to run!");
+  }
   current_running = queue_dequeue(&ready);
   current_running->state = RUNNING;
 }
