@@ -17,7 +17,7 @@ queue_t blocked;
 void initialize_queues(pcb_t *pcbs, int num) {
   int i;
   // Change FIFO to MIN_PRIORITY in this line for extra credit
-  queue_init(&ready, MIN_PRIORITY);
+  queue_init(&ready, FIFO);
   // This should always be FIFO
   queue_init(&blocked, FIFO);
   for (i = 0; i < num; i++) {
