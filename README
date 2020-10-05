@@ -36,3 +36,8 @@ to
 queue_init(&ready, MIN_PRIORITY);
 
 The project is compiled and run using the provided Makefile.
+
+The only thing that isn't quite working is the timing theads to show fairness
+of the scheduler. We wrote two threads (thread6 and thread7) in th3.c that are
+supposed to showcase this, but they show the same CPU time regardless of the
+queue type.
