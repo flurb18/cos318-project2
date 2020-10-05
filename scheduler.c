@@ -33,9 +33,6 @@ void scheduler(void) {
   }
   current_running = queue_dequeue(&ready);
   current_running->state = RUNNING;
-}
-
-void update_time_started(void) {
   current_running->start = get_timer();
 }
 

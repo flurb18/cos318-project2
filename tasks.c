@@ -18,13 +18,17 @@ static struct task_info task3 = { (uint32_t) & thread3, KERNEL_THREAD };
 static struct task_info task4 = { PROC1_ADDR, PROCESS };
 static struct task_info task5 = { PROC2_ADDR, PROCESS };
 
+// New threads to check scheduling is fair
+static struct task_info task6 = { (uint32_t) & thread6, KERNEL_THREAD };
+static struct task_info task7 = { (uint32_t) & thread7, KERNEL_THREAD };
+
 static struct task_info time_switch_1 = { (uint32_t) & thread4, KERNEL_THREAD };
 static struct task_info time_switch_2 = { (uint32_t) & thread5, KERNEL_THREAD };
 static struct task_info time_switch_3 = { PROC3_ADDR, PROCESS };
 
 // The duplication of time_switch_3 is intentional
 static struct task_info *task[] = {
-  &task1, &task2, &task3, &task4, &task5,
+  &task1, &task2, &task3, &task4, &task5, &task6, &task7,
   &time_switch_1, &time_switch_2, &time_switch_3, &time_switch_3
 };
 
