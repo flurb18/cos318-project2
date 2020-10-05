@@ -61,5 +61,6 @@ scheduler_entry:
 	popl	%ecx
 	popfl
 	pop	%eax
-	
+	# Update current_running time started
+	call	update_time_started
 	ret

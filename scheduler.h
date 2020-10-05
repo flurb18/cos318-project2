@@ -22,6 +22,9 @@ void initialize_queues(pcb_t *pcbs, int num);
 // Change current_running to the next task
 void scheduler(void);
 
+// Update current_running's start time (called at the end of scheduler_entry)
+void update_time_started(void);
+
 // Schedule another task
 // Call from a kernel thread or kernel_entry_helper()
 void do_yield(void);

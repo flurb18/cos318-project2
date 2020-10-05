@@ -17,7 +17,7 @@ queue_t blocked;
 void initialize_queues(pcb_t *pcbs, int num) {
   int i;
   // Change FIFO to MIN_PRIORITY in this line for extra credit
-  queue_init(&ready, FIFO);
+  queue_init(&ready, MIN_PRIORITY);
   // This should always be FIFO
   queue_init(&blocked, FIFO);
   for (i = 0; i < num; i++) {
@@ -35,7 +35,12 @@ void scheduler(void) {
   current_running->state = RUNNING;
 }
 
+void update_time_started(void) {
+  current_running->start = get_timer();
+}
+
 void do_yield(void) {
+  current_running->t += get_timer() - current_running->start;
   queue_enqueue(&ready, current_running);
   current_running->state = READY;
   scheduler_entry();

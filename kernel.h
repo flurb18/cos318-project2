@@ -33,6 +33,9 @@ typedef struct pcb {
   struct pcb *next;
   // Time elapsed since initialization
   uint64_t t;
+  // get_timer() when this process got control of the cpu; used for calculating
+  // total time elapsed
+  uint64_t start;
   // Process ID
   uint16_t pid;
   // State of the process
