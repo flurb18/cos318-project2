@@ -31,12 +31,12 @@ void thread6(void) {
   // start time
   uint64_t s;
   // total time
-  uint64_t t_th6 = 0;
+  uint64_t t = 0;
   while(1) {
     s = get_timer();
     print_str(20, 50, "Thread 6 CPU time: ");
-    print_int(20, 69, t_th6);
-    t_th6 += get_timer() - s;
+    print_int(20, 69, t);
+    t += get_timer() - s;
     do_yield();
   }
 }
