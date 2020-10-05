@@ -19,6 +19,7 @@ bool_t queue_isempty(queue_t *q) {
 }
 
 void queue_enqueue(queue_t *q, pcb_t *pcb) {
+  pcb_t *traverse;
   switch(q->type) {
   case FIFO:
     if (queue_isempty(q)) {
@@ -35,8 +36,16 @@ void queue_enqueue(queue_t *q, pcb_t *pcb) {
     if (queue_isempty(q)) {
       q->first = pcb;
       pcb->next = NULL;
-    } else {
-
+    } else if (pcb->t < q->first->t) {
+      pcb->next = q->first;
+      q->first = pcb;
+    }
+    else {
+      traverse = q->first; 
+      while (traverse->next != NULL && traverse->next->t <= pcb->t)
+      	traverse = traverse->next;
+      pcb->next = traverse->next; 
+      traverse->next = pcb;
     }
     break;
   }
